@@ -149,7 +149,7 @@ namespace Site.Controllers
                 {
                     if (objVerify[0].bEmailVerified == true)
                     {
-                        if (objLogin[0].sPassword.ToString() == login.Password.ToString().Trim())
+                        if (Cryptography.Decryptdata(objLogin[0].sPassword.ToString()) == login.Password.ToString().Trim())
                         {
                             Session["UserID"] = objLogin[0].iID;
                             return Content("1");
