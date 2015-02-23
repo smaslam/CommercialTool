@@ -201,7 +201,6 @@
   <ItemGroup>
     <Compile Include="App_Code\Cryptography.cs" />
     <Compile Include="App_Code\Mail.cs" />
-    <Compile Include="App_Code\MobileOTP.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
