@@ -1,0 +1,85 @@
+﻿@model Site.Models.Register
+
+
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Register Account</h2>
+<script type="text/javascript">
+
+    function Start() {
+    }
+</script>
+@using (@Html.BeginForm("Create", "Account", FormMethod.Post, new AjaxOptions { OnBegin = "Start();" }))
+{ 
+
+    <table>
+        <tr>
+            <td>First Name:</td>
+            <td>@Html.TextBoxFor(m => m.FirstName, new { placeholder = "Eg:-Pradeep" })
+                @Html.ValidationMessageFor(m => m.FirstName)
+            </td>
+        </tr>
+        <tr>
+            <td>Last Name:</td>
+            <td>@Html.TextBoxFor(m => m.LastName, new { placeholder = "Eg:-Maurya" })
+                @Html.ValidationMessageFor(m => m.LastName)
+            </td>
+        </tr>
+        <tr>
+            <td>User Name:</td>
+            <td>
+
+                @Html.TextBoxFor(m => m.UserID, new { placeholder = "Eg:-pradeep6990" })
+                @Html.ValidationMessageFor(m => m.UserID)
+            </td>
+        </tr>
+
+
+        <tr>
+            <td>Email Id:</td>
+            <td>
+                @if (Model.EmailID != null)
+                {
+                    
+               
+                   @Html.TextBoxFor(m => m.EmailID, new { placeholder = "Eg:-pradeep@gmail.com",@readonly = "disabled" })
+                }
+                else
+                {
+                    @Html.TextBoxFor(m => m.EmailID, new { placeholder = "Eg:-pradeep@gmail.com" })
+                }
+                @Html.ValidationMessageFor(m => m.EmailID)
+            </td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td>@Html.PasswordFor(m => m.Password, new { placeholder = "Eg:-Pradeep69@90" })
+                @Html.ValidationMessageFor(m => m.Password)
+            </td>
+        </tr>
+        <tr>
+            <td>Confirm Password:</td>
+            <td>@Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Eg:-Pradeep69@90" })
+                @Html.ValidationMessageFor(m => m.ConfirmPassword)
+            </td>
+        </tr>
+        <tr>
+            <td>Mobile No:</td>
+            <td>@Html.TextBoxFor(m => m.Mobile, new { placeholder = "Eg:-9898989898" })
+                @Html.ValidationMessageFor(m => m.Mobile)
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" value="Register" />
+                @*<input type="submit" value="Cancle" />*@
+            </td>
+
+        </tr>
+    </table>
+
+}

@@ -1,0 +1,41 @@
+﻿@model Site.Models.UserRecovery
+
+@{
+    ViewBag.Title = "UserRecovery";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+
+<div>
+    @using (Html.BeginForm("", ""))
+    {
+        <table>
+            <tr>
+                <td>First Name :  </td>
+                <td>@Html.TextBoxFor(m=>m.FirstName)</td>
+            </tr>
+            <tr>
+                <td>Last Name : </td>
+                <td>@Html.TextBoxFor(m=>m.LastName)</td>
+            </tr>
+            <tr>
+                <td>Mobile No</td>
+                <td>@Html.TextBoxFor(m=>m.MobileNo)</td>
+            </tr>
+              <tr>
+                <td>@Html.LabelFor(m=>m.Question1)</td>
+                <td>@Html.TextBoxFor(m=>m.Answer1)</td>
+            </tr>
+             <tr>
+                <td>@Html.LabelFor(m=>m.Question2)</td>
+                <td>@Html.TextBoxFor(m=>m.Answer2)</td>
+            </tr>
+             <tr>
+                <td>@Html.LabelFor(m=>m.Question3)</td>
+                <td>@Html.TextBoxFor(m=>m.Answer3)</td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="Submit" /></td>
+            </tr>
+        </table>
+    }
+</div>

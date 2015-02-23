@@ -1,0 +1,70 @@
+﻿@model Site.Models.Login
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+    });
+    function Begin() {
+        $("#divProcessing").show();
+    }
+    function Sucess(response) {
+        $("#divProcessing").hide();
+        if (result.textContent == "1")
+        {
+            $("#result").remove();
+            window.location.href = '@Url.Action("Index", "Home")';
+        }
+    }
+</script>
+
+<h2>Login Account</h2>
+@using (Ajax.BeginForm("Login", "Account", new AjaxOptions {UpdateTargetId="result",OnBegin="Begin", OnSuccess="Sucess"}))
+{
+    
+    <div>
+        <table>
+            <tr>
+                <td>Email Id:</td>
+                <td>
+                @Html.TextBoxFor(Model => Model.EmailID, new { value = "test" })
+                @Html.ValidationMessageFor(Model => Model.EmailID)
+            </td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td>
+            @Html.PasswordFor(Model => Model.Password, new { value = "123" })
+            @Html.ValidationMessageFor(Model => Model.Password)
+        </td>
+    </tr>
+            <tr>
+                <td></td>
+                <td>
+              
+                    <div style="color:red" id="result"></div>
+                </td>
+            </tr>
+    <tr>
+        <td></td>
+        <td>@Html.ActionLink("Forgotten your password?", "ForgotPassword", "Account")</td>
+
+    </tr>
+    <tr>
+        <td></td>
+        <td><input id="btnlogin" type="submit" value="Login" />
+        </td>
+        <td><span id="divProcessing" style="display:none">
+    Processing, please wait . . . <img src="~/Images/loder.gif" />
+</span> </td>
+    </tr>
+</table>
+
+</div>
+}
+

@@ -1,0 +1,348 @@
+﻿@model Site.Models.Profile
+
+
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+<script type="text/javascript">
+    function Edit() {
+        $("#divDisplayPassword").hide();
+        $("#divPasswordEdit").show();
+        //  document.getElementById("divEditPassword").style("display","block");
+    }
+    function onProfileClick() {
+        $("#profile").show();
+        $("#billing").hide();
+        $("#users").hide();
+        $("#profile-tab").addClass("selected");
+        $("#users-tab").removeClass("selected");
+        $("#billing-tab").removeClass("selected");
+
+    }
+    function onManageUserClick() {
+        $("#profile").hide();
+        $("#billing").hide();
+        $("#users").show();
+        $("#users-tab").addClass("selected");
+        $("#profile-tab").removeClass("selected");
+        $("#billing-tab").removeClass("selected");
+    }
+    function OnUpgradeClick() {
+        $("#profile").hide();
+        $("#billing").show();
+        $("#users").hide();
+        $("#billing-tab").addClass("selected");
+        $("#users-tab").removeClass("selected");
+        $("#profile-tab").removeClass("selected");
+    }
+    function ShowUser() {
+        $("#newUserEditor").show();
+        $("#usersOperations").hide();
+    }
+    function EditName() {
+        $("#profileUsernameEdit").show();
+        $("#profileView").hide();
+    }
+    function EditMobile() {
+        $("#profileMobileEdit").show();
+        $("#mobilePhone").hide();
+    }
+    function EditCompany() {
+        $("#profileCompanyEdit").show();
+        $("#profileCompanyView").hide();
+    }
+    function test(a) {
+        if (a == 1) {
+            $("#divAccessList").hide();
+            $("#divFormList").show();
+        }
+        else {
+            $("#divAccessList").show();
+            $("#divFormList").hide();
+        }
+    }
+
+
+
+
+</script>
+<script type="text/javascript">
+
+</script>
+<div id="tabNavigation" style="float:left">
+    <ul>
+        <li class="tab-navigation">
+            <a id="profile-tab" data-tab-id="profile" onclick="onProfileClick()" class="selected"><span class="nav-icons" id="profile-icon"></span>Profile</a>
+        </li>
+        <li class="tab-navigation">
+            <a id="users-tab" data-tab-id="users" onclick="onManageUserClick()"><span class="nav-icons" id="users-icon"></span>Users</a>
+        </li>
+        <li class="tab-navigation">
+            <a id="billing-tab" data-tab-id="billing" onclick="OnUpgradeClick()">
+                <span class="nav-icons" id="billing-icon"></span>
+                Usage
+            </a>
+        </li>
+    </ul>
+</div>
+
+@using (Html.BeginForm("SendVerificationLink", "Home"))
+{
+    <div id="tabContent" style="float:right">
+        <div class="sprite" id="users" style="display:none">
+            <div class="section-title">
+                <div class="big-title">Setup <span class="green">Sub Accounts</span> to <span class="green">Share</span> Forms and Folders</div>
+            </div>
+            <div class="editable" id="newUserEditor" style="display:none">
+                <span class="cancelEdit">X</span>
+                <table>
+                    <tr>
+                        <td>Email</td>
+                        <td>@Html.TextBoxFor(m => m.EmailID)</td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td>@Html.RadioButton("AllForms",true, new { onchange = "test(0)",@checked = "checked"})Select All</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div id="divAccessList">
+
+                               <table>
+                                    @foreach (var item in Model.AccessList)
+                                    {
+                                        <tr>
+                                            <td>@Html.CheckBoxFor(m => item.Checked, new {id=item.Value })</td><td>@item.Text</td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>@Html.RadioButton("AllForms", "1", new { onchange = "test(1)" })SelectedForm</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div id="divFormList" style="display:none">
+                                I am Form.
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <div class="data">
+                    <div class="buttons">
+                        <button class="save" id="newSubUserSave">Create</button>
+                    </div>
+                </div>
+                <div class="info">
+                    <span class="status">
+                        <span class="waitingIcon" style="display:none;"><img src="http://dwi8drzf3c87f.cloudfront.net//images/loading.gif"></span>
+                        <span class="statusMessage" style="display:none;"></span>
+                    </span>
+                </div>
+
+
+            </div>
+
+            <div id="subAccounts">
+            </div>
+
+            <div id="usersOperations" style="text-align: center;">
+                <a href="#" id="addNewUser" style="margin: 24px 46px 0px 0px; width: 200px; display: inline-block;" onclick="ShowUser()">Upgrade Account</a>
+
+            </div>
+        </div>
+        <div class="sprite" id="billing" style="display: none;">
+            <div class="section-title">
+                <div class="big-title"> Update <span class="green"> Uses</span> Information</div>
+                <!--<div class="title">We can write detailed <b>explanation</b> here, for <b>each</b> view.</div>-->
+            </div>
+
+            <!-- accountType -->
+            <div class="editable" id="profileAccountType" field="accountType">
+                <div class="display">
+                    <span class="editButton"><a href="#">Upgrade Account</a></span>
+                    <span class="lineLabel">Plan Type</span>
+                    <span class="attribute bold">@Html.DisplayFor(m => m.PlanName)</span>
+                </div>
+
+            </div>
+            <div class="clearer"></div>
+
+            <!-- username -->
+            <div class="editable" id="profileUsername" field="username">
+                <div class="display">
+                    <span class="lineLabel">Submission</span>
+                    <span class="attribute">@Html.DisplayFor(m => m.Submission)</span>
+                </div>
+
+            </div>
+
+
+            <!-- password -->
+            <div class="editable" id="profilePassword" field="password">
+                <div class="display" id="divDisplayPassword">
+
+                    <span class="lineLabel">Memory Space</span>
+                    <span class="attribute pass-stars">@Html.DisplayFor(m => m.Memory)</span>
+                </div>
+            </div>
+            <div class="clearer"></div>
+            <!-- phone -->
+            <div class="editable" id="profilePhone" field="phone">
+                <div class="display">
+                    @*<span class="editButton">edit</span>*@
+                    <span class="lineLabel">End Plan Date</span>
+                    <span class="attribute">@Html.DisplayFor(m => m.EndPlan) &nbsp; Days </span>
+                </div>
+
+            </div>
+            <div class="clearer"></div>
+            <div class="editable" id="profilePhone" field="phone">
+                <div class="display">
+                    @*<span class="editButton">edit</span>*@
+                    <span class="lineLabel">Max Form</span>
+                    <span class="attribute">@Html.DisplayFor(m => m.MaxForm)</span>
+                </div>
+
+            </div>
+        </div>
+        <div class="sprite" id="profile" style="display: block;">
+            <div class="section-title">
+                <div class="big-title"> Update <span class="green"> Profile</span> Information</div>
+                <!--<div class="title">We can write detailed <b>explanation</b> here, for <b>each</b> view.</div>-->
+            </div>
+
+
+
+            <!-- username -->
+            <div class="editable" id="profileUsername" field="username">
+
+                <div class="display" id="profileView">
+                    <span class="editButton"><a href="#" onclick="EditName()">edit</a></span>
+                    <span class="lineLabel">Name</span>
+                    <span class="attribute">@Html.DisplayFor(m => m.FirstName) &nbsp;@Html.DisplayFor(m => m.LastName)</span>
+                </div>
+                <div id="profileUsernameEdit" style="display:none">
+                    <table>
+                        <tr>
+                            <td>First  Name:</td>
+                            <td>@Html.TextBoxFor(m => m.FirstName)</td>
+                        </tr>
+                        <tr>
+                            <td>Last Name:</td>
+                            <td>@Html.TextBoxFor(m => m.LastName)</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><input type="submit" value="Save" /></td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+
+
+            <!-- password -->
+            <div class="editable" id="profilePassword" field="password">
+                <div class="display" id="divDisplayPassword">
+                    <span class="editButton"><a href="#" onclick="Edit()">edit</a></span>
+                    <span class="lineLabel">Password</span>
+                    <span class="attribute pass-stars">*****</span>
+                </div>
+                <div id="divPasswordEdit" style="display:none">
+                    <span class="cancelEdit"></span>
+
+                    <span class="fields">
+
+
+                        @Html.Action("ChangePassword", "Account")
+                    </span>
+                </div>
+            </div>
+            <div class="clearer"></div>
+            <!-- phone -->
+            <div class="editable" id="profilePhone" field="phone">
+                <div class="display" id="mobilePhone">
+                    <span class="editButton"><a href="#" onclick="EditMobile()">edit</a></span>
+                    <span class="lineLabel">Phone</span>
+                    <span class="attribute">@Html.DisplayFor(m => m.MobileNo)</span>
+                </div>
+                <div id="profileMobileEdit" style="display:none">
+                    <table>
+                        <tr>
+                            <td>Mobile No.:</td>
+                            <td>@Html.TextBoxFor(m => m.MobileNo)</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><input type="submit" value="Save" /></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="clearer"></div>
+
+
+
+            <!-- email -->
+            <div class="editable" id="profileEmail" field="email">
+                <div class="display">
+                    @*<span class="editButton">edit</span>*@
+                    <span class="lineLabel">Email</span>
+                    <span class="attribute">dharam3597@gmail.com</span>
+                </div>
+            </div>
+            <div class="clearer"></div>
+
+
+
+            <!-- securityQuestion -->
+            <div class="editable" id="profileSecurityQuestion" field="securityQuestion">
+                <div class="display">
+                    @*<span class="editButton">edit</span>*@
+                    <span class="lineLabel">Security Question</span>
+                    <span class="attribute pass-stars"></span>
+                </div>
+                <div>
+                    @Html.Action("SecurityQuestion", "Home")
+
+                </div>
+            </div>
+
+            <!-- company -->
+            <div class="editable" id="profileCompany" field="company">
+                <div class="display" id="profileCompanyView">
+                    <span class="editButton"><a href="#" onclick="EditCompany()">edit</a></span>
+                    <span class="lineLabel">Company Name</span>
+                    <span class="attribute">@Html.DisplayFor(m => m.CompanyName)</span>
+                </div>
+                <div id="profileCompanyEdit" style="display:none">
+                    <table>
+                        <tr>
+                            <td>Company Name:</td>
+                            <td>@Html.TextBoxFor(m => m.CompanyName)</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><input type="submit" value="Save" /></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="clearer"></div>
+        </div>
+
+    </div>
+}
+
+<script src="~/Scripts/bootstrap.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/modern-business.css" rel="stylesheet" />
+<link href="~/Content/Profile.css" rel="stylesheet" />

@@ -1,0 +1,34 @@
+﻿@model Site.Models.SecurityQuestion
+
+
+<div>
+
+    @using (@Html.BeginForm("SecurityQuestion", "Home", FormMethod.Post))
+    {
+        <table>
+            <tr>
+                <td>Question 1:</td>
+                <td>@Html.DropDownListFor(x => x.QuestionText1, Model.ddl1, "Select")</td>
+                <td>@Html.TextBoxFor(m => m.Answer1)</td>
+
+            </tr>
+            <tr>
+                <td>Question 2:</td>
+                <td>@Html.DropDownListFor(x => x.QuestionText2, Model.ddl2, "Select", new { id = "ddl2" })</td>
+                <td>@Html.TextBoxFor(m => m.Answer2)</td>
+
+            </tr>
+            <tr>
+                <td>Question 3:</td>
+                <td>@Html.DropDownListFor(x => x.QuestionText3, Model.ddl3, "Select", new { id = "ddl3" })</td>
+                <td>@Html.TextBoxFor(m => m.Answer3)</td>
+
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Submit" />
+                </td>
+            </tr>
+        </table>
+    }
+</div>

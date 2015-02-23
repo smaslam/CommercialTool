@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0B11838F-6C22-4B36-A841-865BAB3849AE}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Dev.A4</RootNamespace>
+    <AssemblyName>Dev.A4</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>false</UseIISExpress>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\BizLogic\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>C:\Users\Dev3\Desktop\Test\Test\Testing\bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="cLog.cs" />
+    <Compile Include="cMessage.cs" />
+    <Compile Include="cSecurityManager.cs" />
+    <Compile Include="cSession.cs" />
+    <Compile Include="cSystem.cs" />
+    <Compile Include="cUser.cs" />
+    <Compile Include="DataTypes\cCurrency.cs" />
+    <Compile Include="DataTypes\cEMailID.cs" />
+    <Compile Include="DataTypes\cNameOfPerson.cs" />
+    <Compile Include="DataTypes\cObjectReference.cs" />
+    <Compile Include="DataTypes\cPhone.cs" />
+    <Compile Include="DataTypes\cURL.cs" />
+    <Compile Include="Enums\enClassType.cs" />
+    <Compile Include="Enums\enCMSState.cs" />
+    <Compile Include="Enums\enComparison.cs" />
+    <Compile Include="Enums\enDataType.cs" />
+    <Compile Include="Enums\enLogical.cs" />
+    <Compile Include="Enums\enState.cs" />
+    <Compile Include="Enums\enStorageType.cs" />
+    <Compile Include="Enums\enUserType.cs" />
+    <Compile Include="Exceptions\cApplicationIsNotActiveException.cs" />
+    <Compile Include="Exceptions\cHistoryObjectCannotBeModifiedException.cs" />
+    <Compile Include="Exceptions\cInsufficientRightsException.cs" />
+    <Compile Include="Exceptions\cInvalidFilterParameterException.cs" />
+    <Compile Include="Exceptions\cInvalidFilterParameterValueException.cs" />
+    <Compile Include="Exceptions\cInvalidObjectException.cs" />
+    <Compile Include="Exceptions\cInvalidOutputParameterException.cs" />
+    <Compile Include="Exceptions\cInvalidUpdateParameterException.cs" />
+    <Compile Include="Exceptions\cInvalidUpdateParameterValueException.cs" />
+    <Compile Include="Exceptions\cLogicalOperatorRequiredException.cs" />
+    <Compile Include="Exceptions\cRequiredParametersMissingException.cs" />
+    <Compile Include="Exceptions\cStaleObjectException.cs" />
+    <Compile Include="Exceptions\cUnsupportedActionInvokedException.cs" />
+    <Compile Include="Exceptions\cValidationException.cs" />
+    <Compile Include="General\cFilter.cs" />
+    <Compile Include="General\cFilterOutput.cs" />
+    <Compile Include="General\cObjectProxy.cs" />
+    <Compile Include="General\cOutputField.cs" />
+    <Compile Include="General\cUtility.cs" />
+    <Compile Include="Interfaces\iApplication.cs" />
+    <Compile Include="Interfaces\iClass_Base.cs" />
+    <Compile Include="Interfaces\iClass_Type0.cs" />
+    <Compile Include="Interfaces\iClass_Type1.cs" />
+    <Compile Include="Interfaces\iClass_Type2.cs" />
+    <Compile Include="Interfaces\iClass_Type3.cs" />
+    <Compile Include="Interfaces\iClass_Type4.cs" />
+    <Compile Include="Interfaces\iSecurityToken.cs" />
+    <Compile Include="Interfaces\iSession.cs" />
+    <Compile Include="Interfaces\iUser.cs" />
+    <Compile Include="Internal\cClass.cs" />
+    <Compile Include="Internal\cProperty.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Storages\cMSSQL.cs" />
+    <Compile Include="Storages\cStorage.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Base\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>10822</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

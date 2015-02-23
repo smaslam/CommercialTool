@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1F4A758D-1C84-440F-9375-1C20A2DDE7D9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CommTool</RootNamespace>
+    <AssemblyName>CommTool</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Base\cAccess_Base.cs" />
+    <Compile Include="Base\cDataSubmission_Base.cs" />
+    <Compile Include="Base\cForms_Base.cs" />
+    <Compile Include="Base\cFormVersion_Base.cs" />
+    <Compile Include="Base\cLoginUser_Base.cs" />
+    <Compile Include="Base\cLogin_Plan_Base.cs" />
+    <Compile Include="Base\cLogin_Security_Base.cs" />
+    <Compile Include="Base\cPlan_Base.cs" />
+    <Compile Include="Base\cSecurityQuestion_Base.cs" />
+    <Compile Include="Base\cSubUser_Base.cs" />
+    <Compile Include="Base\cToolBox_Base.cs" />
+    <Compile Include="Base\cUserAccessForm_Base.cs" />
+    <Compile Include="Base\cUserProfile_Base.cs" />
+    <Compile Include="Base\cVerfication_Base.cs" />
+    <Compile Include="cAccess.cs" />
+    <Compile Include="cCustomApplication.cs" />
+    <Compile Include="cDataSubmission.cs" />
+    <Compile Include="cForms.cs" />
+    <Compile Include="cFormVersion.cs" />
+    <Compile Include="cLoginUser.cs" />
+    <Compile Include="cLogin_Plan.cs" />
+    <Compile Include="cLogin_Security.cs" />
+    <Compile Include="cPlan.cs" />
+    <Compile Include="cSecurityQuestion.cs" />
+    <Compile Include="cSubUser.cs" />
+    <Compile Include="cToolBox.cs" />
+    <Compile Include="cUserAccessForm.cs" />
+    <Compile Include="cUserProfile.cs" />
+    <Compile Include="cVerfication.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dev.A4.Web\Dev.A4.Web\Dev.A4.Web.csproj">
+      <Project>{bdad0edf-2d0a-4378-89b3-0a367e635786}</Project>
+      <Name>Dev.A4.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dev.A4\Dev.A4\Dev.A4.csproj">
+      <Project>{0b11838f-6c22-4b36-a841-865bab3849ae}</Project>
+      <Name>Dev.A4</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\CommTool.dll" />
+    <Content Include="bin\Debug\CommTool.pdb" />
+    <Content Include="bin\Debug\Dev.A4.dll" />
+    <Content Include="bin\Debug\Dev.A4.pdb" />
+    <Content Include="bin\Debug\Dev.A4.Web.dll" />
+    <Content Include="bin\Debug\Dev.A4.Web.pdb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Release\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
