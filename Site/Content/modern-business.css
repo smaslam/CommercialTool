@@ -12,7 +12,8 @@ body {
 }
 
 body {
-    /*padding-top: 50px;*/ /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    padding-top: 20px; 
+	 /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
 
 .img-portfolio {
@@ -70,10 +71,7 @@ header.carousel .fill {
 /* Footer Styles */
 
 footer {
-	margin-top: 0px;
-	margin-right: 0;
-	margin-left: 0;
-	margin-bottom: 10px;
+    margin: 50px 0;
 }
 
 /* Responsive Styles */

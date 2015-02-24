@@ -1,14 +1,56 @@
-﻿@if (Request.IsAuthenticated) {
-    <text>
-        Hello, @Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })!
-        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
-            @Html.AntiForgeryToken()
-            <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+﻿@model Site.Models.Login
+<script type="text/javascript">
+    $(document).ready(function () {
+
+    });
+    function Begin() {
+        $("#divProcessing").show();
+    }
+    function Sucess(response) {
+        $("#divProcessing").hide();
+        if (result.textContent == "1") {
+            $("#result").remove();
+            window.location.href = '@Url.Action("Index", "Home")';
         }
-    </text>
-} else {
-    <ul>
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
-}
+    }
+</script>
+@using (Ajax.BeginForm("Login", "Account", new AjaxOptions { UpdateTargetId = "result", OnBegin = "Begin", OnSuccess = "Sucess" }))
+{
+<div class="col-xs-5 login_bg">
+    <div class="col-xs-offset-0">
+        <div class="labels"><img src="~/Images/Existing-User-Label.png" alt="" title=""></div>
+        <div class="form-login">
+            <div class="text-center">
+                <img src="~/Images/Login-Icon.png" alt="" title=""><br>
+                <br>
+            </div>
+            @Html.TextBoxFor(Model => Model.EmailID, null, new {id="email", value = "test", @class = "shadow form-control input-sm chat-input", placeholder = "Email ID" })
+            <span style="color:red">
+                @Html.ValidationMessageFor(Model => Model.EmailID)
+            </span>
+          
+            <br />
+            <br />
+            @Html.PasswordFor(Model => Model.Password, new { id="password", @class="shadow glyphicon-lock form-control input-sm chat-input glyphicon ", placeholder="Password" })
+            <span style="color:red">
+                @Html.ValidationMessageFor(Model => Model.Password)
+            </span>
+     
+            <br />
+            <br />
+            <div style="color:red" id="result"></div>
+            <div class="wrapper"> <span class="group-btn"> 
+            
+             <input id="btnlogin" class="btn btn-primary btn-md" type="submit" value="login" />
+                </span> </div>
+            <div>
+                <label class="checkbox text-center">
+                    <input type="checkbox" value="remember-me">
+                    Remember me on this device
+                </label>
+            </div>
+            <div class="text-center">@Html.ActionLink("Forgot Password", "ForgotPassword", "Account", null, new { style = "font-weight:bold;" })</div>
+        </div>
+    </div>
+</div>
+ }

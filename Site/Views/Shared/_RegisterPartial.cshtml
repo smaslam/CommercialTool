@@ -1,0 +1,71 @@
+﻿@model Site.Models.Register  
+<script type="text/javascript">
+
+    function Start() {
+    }
+
+</script>
+
+ <!--Sign Up-->
+@using (@Html.BeginForm("Create", "Account", FormMethod.Post, new AjaxOptions { OnBegin = "Start();" }))
+{
+<div class="col-md-5 login_bg col-xs-offset-1">
+    <div class="labels"><img src="~/Images/New-User-Label.png" alt="" title=""></div>
+    <div class="form-login">
+        <div class="text-center">
+            <img src="~/Images/Sign-Up-LOGO.png" alt="" title=""><br>
+            <br />
+        </div>
+     
+        @Html.TextBoxFor(m => m.FirstName, new {id="fname", @class="shadow form-control input-sm chat-input glyphicon", placeholder="First Name" })
+        <span style="color:red;">
+            @Html.ValidationMessageFor(m => m.FirstName)
+        </span>
+        <br />
+        <br />
+        @Html.TextBoxFor(m => m.LastName, new { id="lname", @class="shadow form-control input-sm chat-input glyphicon", placeholder="Last Name" })
+        <span style="color:red;">
+            @Html.ValidationMessageFor(m => m.LastName)
+        </span>
+        <br />
+        <br />
+        @Html.TextBoxFor(m => m.UserID, new {  id="uerId" ,@class="shadow form-control input-sm chat-input glyphicon", placeholder="User Id" })
+        <span style="color:red;">
+            @Html.ValidationMessageFor(m => m.UserID)
+         </span>
+        <br />
+        <br />
+            @Html.TextBoxFor(m => m.EmailID, new { id="email", @class="shadow form-control input-sm chat-input glyphicon" ,placeholder="Email Id" })
+        <span style="color:red;">
+            @Html.ValidationMessageFor(m => m.EmailID)
+        </span>
+            <br />
+            <br />
+             @Html.TextBoxFor(m => m.Mobile, new { id="contact", @class="shadow form-control input-sm chat-input glyphicon ", placeholder="Mobile Number"  })
+        <span style="color:red;">
+            @Html.ValidationMessageFor(m => m.Mobile)
+        </span>
+            
+            <br />
+            <br />
+        @Html.PasswordFor(m => m.Password, new { id="password", @class="shadow form-control input-sm chat-input glyphicon glyphicon-lock" ,placeholder="Password"  })
+        <span style="color:red;">
+            @Html.ValidationMessageFor(m => m.Password)
+        </span>
+           
+            <br />
+            <br />
+        @Html.PasswordFor(m => m.ConfirmPassword, new {  id="ConfirmPassword",@class=" shadow form-control input-sm chat-input glyphicon glyphicon-lock", placeholder="Confirm Password"  })
+        <span style="color:red;">
+            @Html.ValidationMessageFor(m => m.ConfirmPassword)
+        </span>
+            
+            <br />
+            <br />
+            <div class="wrapper"> <span class="group-btn"> 
+               
+                                      <input type="submit" value="Register" class="btn btn-primary btn-md" />
+                 </span> </div>
+</div>
+</div>
+}

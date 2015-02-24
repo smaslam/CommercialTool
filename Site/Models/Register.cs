@@ -56,11 +56,11 @@ namespace Site.Models
     }
     public class Login
     {
-       // [Required(ErrorMessage = "Please Enter Email ID")]
-       // [RegularExpression(".+@.+\\..+", ErrorMessage = "Please Enter Valid Email ID ")]
+        [Required(ErrorMessage = "Please Enter Email ID")]
+        [RegularExpression(".+@.+\\..+", ErrorMessage = "Please Enter Valid Email ID ")]
         public string EmailID { get; set; }
 
-        //[Required(ErrorMessage = "Please Enter Password")]
+        [Required(ErrorMessage = "Please Enter Password")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
