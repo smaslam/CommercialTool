@@ -1,0 +1,68 @@
+﻿@model Site.Models.SubUser
+<script type="text/javascript">
+    $(document).ready(function () {
+
+    });
+    function Begin() {
+        $("#divProcessing").show();
+    }
+    function Sucess(response) {
+
+        if (result.textContent == "1") {
+            $("#result").remove();
+
+        }
+        if (result.textContent == "5") {
+            $("#result").remove();
+        }
+    }
+</script>
+
+@using (@Html.BeginForm("SubUser", "Home", FormMethod.Post))
+{
+    <div>
+        <table>
+            <tr>
+                <td>Email</td>
+                <td>@Html.TextBoxFor(m => m.EmailID)</td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>@Html.RadioButton("AllForms", true, new { onchange = "test(0)", @checked = "checked" })Select All</td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="divAccessList">
+
+                        <table>
+                            @foreach (var item in Model.AccessList)
+                            {
+                                <tr>
+                                    <td>@Html.CheckBoxFor(m => item.Checked, new { id = item.Value })</td>
+                                    <td>@item.Text</td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>@Html.RadioButton("AllForms", "1", new { onchange = "test(1)" })SelectedForm</td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="divFormList" style="display:none">
+                        I am Form.
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><input id="btnlogin" type="submit" value="Create" /></td>
+            </tr>
+        </table>
+    </div>
+
+
+}

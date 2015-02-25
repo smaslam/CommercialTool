@@ -19,7 +19,7 @@ namespace Site.Models
         public string Memory { get; set; }
         public string EndPlan { get; set; }
         public string MaxForm { get; set; }
-        public List<CheckBoxes> AccessList { get; set; }
+       
     }
 
     public class CheckBoxes
@@ -27,6 +27,13 @@ namespace Site.Models
         public string Text { get; set; }
         public string Value { get; set; }
         public bool Checked { get; set; }
+    }
+    public class SubUser
+    {
+        public string EmailID { get; set; }
+        public List<CheckBoxes> AccessList { get; set; }
+        public int FormID { get; set; }
+        public string FormName { get; set; }
     }
 
 }

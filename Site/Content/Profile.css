@@ -236,10 +236,6 @@ body, html {
     font-family: "PT Sans",sans-serif;
 }
 
-body {
-    background: #444 url(../img/tile-black.jpg) repeat scroll 0 0;
-    padding-bottom: 75px;
-}
 
 #main {
     min-width: 720px;
@@ -284,6 +280,7 @@ body {
             -moz-box-sizing: border-box;
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
+            color:blue;
         }
 
             #tabNavigation li a:hover {
@@ -310,6 +307,7 @@ body {
         #tabNavigation li .selected {
             background-color: #e6e6e6;
             font-weight: 700;
+            color:red;
             text-shadow: 0 1px 1px #fff;
             filter: dropshadow(color=#fff,offx=0,offy=1);
             behavior: url(pie.htc);
@@ -432,7 +430,7 @@ body {
             width: 8%;
             padding-right: 3%;
             text-align: right;
-            color: #444;
+            color: red;
             font-size: 14px;
         }
 
@@ -1556,7 +1554,7 @@ body {
             width: 8%;
             padding-right: 3%;
             text-align: right;
-            color: #444;
+            color: red;
             font-size: 14px;
             line-height: 31px;
         }
@@ -1828,6 +1826,7 @@ body {
 .editButtonX {
     width: 11px;
     height: 15px;
+
     background: url(/myaccount/img/pen-icon.png) no-repeat center center;
     display: inline-block;
     cursor: pointer;
@@ -4018,9 +4017,6 @@ ol, ul {
     background: #444 url(/images/christmas.png?v2) repeat scroll 0 0;
 }
 
-.tile-black {
-    background: #444 url(/images/themes/tile-black.jpg) repeat scroll 0 0;
-}
 
 .tile-brown {
     background: #4a3726 url(/images/themes/tile-brown.jpg) repeat scroll 0 0;
@@ -4437,10 +4433,6 @@ body, html {
     font-family: "PT Sans",sans-serif;
 }
 
-body {
-    background: #444 url(../img/tile-black.jpg) repeat scroll 0 0;
-    padding-bottom: 75px;
-}
 
 #main {
     min-width: 720px;
@@ -4633,7 +4625,7 @@ body {
             width: 8%;
             padding-right: 3%;
             text-align: right;
-            color: #444;
+            color: red;
             font-size: 14px;
         }
 
@@ -5757,7 +5749,7 @@ body {
             width: 8%;
             padding-right: 3%;
             text-align: right;
-            color: #444;
+            color: red;
             font-size: 14px;
             line-height: 31px;
         }
@@ -6027,6 +6019,7 @@ body {
 }
 
 .editButtonX {
+    color:red;
     width: 11px;
     height: 15px;
     background: url(/myaccount/img/pen-icon.png) no-repeat center center;
@@ -6059,7 +6052,7 @@ body {
     .section-title .big-title {
         width: 100%;
         text-align: center;
-        font-size: 30px;
+        font-size: 20px;
         line-height: 60px;
     }
 
@@ -8219,9 +8212,7 @@ ol, ul {
     background: #444 url(/images/christmas.png?v2) repeat scroll 0 0;
 }
 
-.tile-black {
-    background: #444 url(/images/themes/tile-black.jpg) repeat scroll 0 0;
-}
+
 
 .tile-brown {
     background: #4a3726 url(/images/themes/tile-brown.jpg) repeat scroll 0 0;

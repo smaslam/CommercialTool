@@ -423,6 +423,7 @@
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_RegisterPartial.cshtml" />
+    <Content Include="Views\Shared\_SubUserPartial.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

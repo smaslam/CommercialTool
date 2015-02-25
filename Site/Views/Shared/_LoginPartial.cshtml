@@ -8,9 +8,14 @@
     }
     function Sucess(response) {
         $("#divProcessing").hide();
-        if (result.textContent == "1") {
+        if (result.textContent == "1")
+        {
             $("#result").remove();
             window.location.href = '@Url.Action("Index", "Home")';
+        }
+        if (result.textContent == "5") {
+            $("#result").remove();
+            window.location.href = '@Url.Action("Profile", "Home")';
         }
     }
 </script>

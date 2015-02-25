@@ -47,19 +47,9 @@ namespace Site.Controllers
                         objProfile.Memory = objPlan.sMemorySpace;
                         objProfile.MaxForm = objPlan.sMaxCreateForms;
                     }
-                    List<cAccess> aobjAccess = cAccess.Find();
-                    List<CheckBoxes> chkbx = new List<CheckBoxes>();
-                    if (aobjAccess.Count > 0)
-                    {
-                        foreach (var item in aobjAccess)
-                        {
-                            chkbx.Add(new CheckBoxes() { Text = item.sAccessName, Checked = true, Value = item.iID.ToString() });
-                        }
-
-
-                    }
-
-                    objProfile.AccessList = chkbx;
+                    //HomeController c = new HomeController();
+                    //ActionResult result = c.SubUserLoad();
+                   
                 }
 
             }
@@ -71,6 +61,28 @@ namespace Site.Controllers
 
             return View(objProfile);
         }
+
+        //Load Magen user:-
+        [HttpGet]
+        public ActionResult SubUser(){
+            List<cAccess> aobjAccess = cAccess.Find();
+            List<CheckBoxes> chkbx = new List<CheckBoxes>();
+            if (aobjAccess.Count > 0)
+            {
+                foreach (var item in aobjAccess)
+                {
+                    chkbx.Add(new CheckBoxes() { Text = item.sAccessName, Checked = true, Value = item.iID.ToString() });
+                }
+
+
+            }
+
+            SubUser objSubUser = new SubUser();
+            objSubUser.AccessList = chkbx;
+            return PartialView("_SubUserPartial", objSubUser);
+
+        }
+
 
         [HttpPost]
         public ActionResult Profile(Profile objProf)
@@ -168,7 +180,7 @@ namespace Site.Controllers
         }
 
         [HttpPost]
-        public string SendVerificationLink(Profile profile)
+        public ActionResult SubUser(SubUser profile)
         {
             try
             {
@@ -240,7 +252,7 @@ namespace Site.Controllers
 
                 throw;
             }
-            return "send";
+            return View();
         }
 
         public void sendSubUserVerificationMail(string FirstName, string LastName, string SubUserEmail, string ParantUserEmail,string ParantID,string HashCode)

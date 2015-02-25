@@ -3,7 +3,7 @@
 
 @{
     ViewBag.Title = "Profile";
-    Layout = "~/Views/Shared/_Home.cshtml";
+    Layout = "~/Views/Shared/_AccountMaster.cshtml";
 }
 <script type="text/javascript">
     function Edit() {
@@ -27,6 +27,7 @@
         $("#users-tab").addClass("selected");
         $("#profile-tab").removeClass("selected");
         $("#billing-tab").removeClass("selected");
+
     }
     function OnUpgradeClick() {
         $("#profile").hide();
@@ -62,10 +63,6 @@
             $("#divFormList").hide();
         }
     }
-
-
-
-
 </script>
 <script type="text/javascript">
 
@@ -87,75 +84,24 @@
     </ul>
 </div>
 
-@using (Html.BeginForm("SendVerificationLink", "Home"))
+@using (Html.BeginForm("Profile", "Home"))
 {
     <div id="tabContent" style="float:right">
         <div class="sprite" id="users" style="display:none">
             <div class="section-title">
-                <div class="big-title">Setup <span class="green">Sub Accounts</span> to <span class="green">Share</span> Forms and Folders</div>
+                <div class="big-title">Setup Sub Accounts to Share Forms and Folders</div>
             </div>
             <div class="editable" id="newUserEditor" style="display:none">
                 <span class="cancelEdit">X</span>
-                <table>
-                    <tr>
-                        <td>Email</td>
-                        <td>@Html.TextBoxFor(m => m.EmailID)</td>
-                    </tr>
-
-                    <tr>
-                        <td></td>
-                        <td>@Html.RadioButton("AllForms",true, new { onchange = "test(0)",@checked = "checked"})Select All</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div id="divAccessList">
-
-                               <table>
-                                    @foreach (var item in Model.AccessList)
-                                    {
-                                        <tr>
-                                            <td>@Html.CheckBoxFor(m => item.Checked, new {id=item.Value })</td><td>@item.Text</td>
-                                        </tr>
-                                    }
-                                </table>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>@Html.RadioButton("AllForms", "1", new { onchange = "test(1)" })SelectedForm</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div id="divFormList" style="display:none">
-                                I am Form.
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-                <div class="data">
-                    <div class="buttons">
-                        <button class="save" id="newSubUserSave">Create</button>
-                    </div>
-                </div>
-                <div class="info">
-                    <span class="status">
-                        <span class="waitingIcon" style="display:none;"><img src="http://dwi8drzf3c87f.cloudfront.net//images/loading.gif"></span>
-                        <span class="statusMessage" style="display:none;"></span>
+                <span class="fields">
+                    @Html.Action("SubUser", "Home");
                     </span>
+     
                 </div>
-
-
-            </div>
-
-            <div id="subAccounts">
-            </div>
-
             <div id="usersOperations" style="text-align: center;">
                 <a href="#" id="addNewUser" style="margin: 24px 46px 0px 0px; width: 200px; display: inline-block;" onclick="ShowUser()">Upgrade Account</a>
-
             </div>
-        </div>
+            </div>
         <div class="sprite" id="billing" style="display: none;">
             <div class="section-title">
                 <div class="big-title"> Update <span class="green"> Uses</span> Information</div>
@@ -338,11 +284,11 @@
         </div>
 
     </div>
+
 }
 
 <script src="~/Scripts/bootstrap.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
 <link href="~/Content/bootstrap.css" rel="stylesheet" />
-<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 <link href="~/Content/modern-business.css" rel="stylesheet" />
 <link href="~/Content/Profile.css" rel="stylesheet" />

@@ -152,7 +152,14 @@ namespace Site.Controllers
                         if (Cryptography.Decryptdata(objLogin[0].sPassword.ToString()) == login.Password.ToString().Trim())
                         {
                             Session["UserID"] = objLogin[0].iID;
-                            return Content("1");
+                            if (objLogin[0].bFirstTime == true)
+                            {
+                                return Content("1");
+                            }
+                            else {
+                                return Content("5");
+                            }
+                          
 
                         }
                         else
