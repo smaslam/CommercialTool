@@ -1,15 +1,24 @@
 ﻿@{
     ViewBag.Title = "PagePreview";
+    Layout = null;
 }
 
 <script src="~/Scripts/jquery-1.8.2.min.js"></script>
 <script>
     $(document).ready(function () {
         $("#btnSubmit").click(function () {
-            $(".droppedField").find(".control-label").each(function () {
-                alert($(this).html());
-                //var data =$(this).val();
-                //alert(s);
+            $(".droppedField").find(".control-label,input").each(function () {
+                if ($(this).is('label')) {
+                    alert($(this).html());
+                }
+                else if ($(this).is('input')) {
+                    alert($(this).val());
+                }
+                else if ($(this).is("input[type='radio']").is(':checked')) {
+                    //alert('adss');
+                    alert($(this).parent().html());
+                    //alert($(this).is("input[type='radio']:checked").val());
+                }
             });
 
         });
@@ -20,9 +29,20 @@
 </script>
 <br />
 <br />
-@Html.Raw(TempData["formContent"])
+@Html.Raw(Session["formSourceContent"])
+
 
 <input type="submit" id="btnSubmit" value="Submit" onclick="frm()" />
+
+
+
+
+
+
+
+
+
+
 
 
 
