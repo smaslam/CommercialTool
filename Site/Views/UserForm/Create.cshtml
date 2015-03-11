@@ -1,4 +1,15 @@
-﻿<!DOCTYPE HTML>
+﻿@{
+    ViewBag.Title = "Create";
+    Layout = null;
+}
+
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+<!DOCTYPE HTML>
 <html lang="en-US">
 <head>
     <meta charset="UTF-8">
@@ -6,7 +17,8 @@
     <link href="~/FileJS/bootstrap.min.css" rel="stylesheet" media="screen">
     <link rel="stylesheet" href="~/FileJS/jquery-ui.css" />
 
-    <title>Create Form</title>
+    <title>Demo 2
+    </title>
 
     <style>
         .activeDroppable {
@@ -63,6 +75,8 @@
         }
     </style>
     <script>
+
+
         /* Make the control draggable */
         function makeDraggable() {
 
@@ -318,10 +332,12 @@
 
         /* Specific method to save changes to a combobox */
         save_changes.combobox = function (values) {
+            alert(values);
             console.log(values);
             var div_ctrl = $("#" + values.forCtrl);
             var ctrl = div_ctrl.find("select")[0];
             ctrl.name = values.name;
+            alert(values.name);
             $(ctrl).empty();
             $(values.options.split('\n')).each(function (i, o) {
                 $(ctrl).append("<option>" + $.trim(o) + "</option>");
@@ -341,6 +357,7 @@
                 var label = $(label_template).clone().text($.trim(o))
                 var radio = $(radio_template).clone();
                 radio[0].name = values.name;
+                
                 label.append(radio);
                 $(ctrl).append(label);
             });
@@ -359,6 +376,7 @@
                 var label = $(label_template).clone().text($.trim(o))
                 var checkbox = $(checkbox_template).clone();
                 checkbox[0].name = values.name;
+                
                 label.append(checkbox);
                 $(ctrl).append(label);
             });
@@ -599,6 +617,14 @@
 
     <script>
         $(document).ready(docReady);
+
+
+
+
     </script>
+
+
+
+
 </body>
 </html>

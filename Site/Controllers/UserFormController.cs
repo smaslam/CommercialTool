@@ -28,8 +28,9 @@ namespace Site.Controllers
                 {
                     cForms objForm = cForms.Create();
                     objForm.sFormName = formName;
-                    objForm.objLoginUser.iObjectID = Convert.ToInt32(Session["UserID"].ToString());
+                    objForm.objLoginUser.iObjectID=Convert.ToInt32( Session["UserID"].ToString());
                     objForm.sHTMLContent = HTMLCode;
+                    objForm.bIsActive = true;
                     objForm.sEncrytionKey = "";
                     objForm.Save();
                 }
@@ -57,7 +58,8 @@ namespace Site.Controllers
                     List<cForms> objForm = cForms.Find(" objLoginUser = " + Session["UserID"].ToString() + " and sFormName = " + formName + " and bIsActive = true" );
                    if (objForm.Count == 1)
                    {
-                       TempData["formContent"] = objForm[0].sHTMLContent;
+                       Session["formSourceContent"] = objForm[0].sHTMLContent;
+
                         result = objForm[0].sHTMLContent;
                         
 
