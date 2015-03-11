@@ -4,10 +4,10 @@
 
     });
     function Begin() {
-        $("#divProcessing").show();
+        $("#loder").show();
     }
     function Sucess(response) {
-        $("#divProcessing").hide();
+        $("#loder").hide();
         if (result.textContent == "1")
         {
             $("#result").remove();
@@ -40,14 +40,15 @@
             <span style="color:red">
                 @Html.ValidationMessageFor(Model => Model.Password)
             </span>
-     
-            <br />
             <br />
             <div style="color:red" id="result"></div>
+           
+            <br />
+            
             <div class="wrapper"> <span class="group-btn"> 
             
              <input id="btnlogin" class="btn btn-primary btn-md" type="submit" value="login" />
-                </span> </div>
+                </span><span id="loder" style="display:none"><img src="~/Images/l2.gif" alt="" title=""></span> </div>
             <div>
                 <label class="checkbox text-center">
                     <input type="checkbox" value="remember-me">

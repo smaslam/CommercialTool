@@ -133,7 +133,6 @@ namespace Site.App_Code
                 try
                 {
                     smtpmail.Send(oMail);
-                    result = "EmailSent";
 
                 }
                 catch (Exception)

@@ -30,6 +30,7 @@ namespace Site.Controllers
                 List<cUserProfile> aobjProfile = cUserProfile.Find(" objLoginUser = " + Convert.ToInt32(objLogin.iID));
                 if (aobjProfile.Count > 0)
                 {
+                    objProfile.UserName = objLogin.sUserName;
                     objProfile.EmailID = objLogin.sEmailID;
                     objProfile.FirstName = aobjProfile[0].sFirstName;
                     objProfile.LastName = aobjProfile[0].sLastName;
@@ -37,16 +38,16 @@ namespace Site.Controllers
                     objProfile.CompanyName = aobjProfile[0].sCompanyName;
 
                     //Plan Data Iterate:-
-                    List<cLogin_Plan> objPlanLogin = cLogin_Plan.Find(" objLoginUser = " + Convert.ToInt32(objLogin.iID));
-                    if (objPlanLogin.Count > 0)
-                    {
-                        cPlan objPlan = cPlan.Get_ID(objPlanLogin[0].objPlan.iObjectID);
-                        objProfile.PlanName = objPlan.sName;
-                        objProfile.EndPlan = objPlan.sPlanDays;
-                        objProfile.Submission = objPlan.sFormSubmission;
-                        objProfile.Memory = objPlan.sMemorySpace;
-                        objProfile.MaxForm = objPlan.sMaxCreateForms;
-                    }
+                    //List<cLogin_Plan> objPlanLogin = cLogin_Plan.Find(" objLoginUser = " + Convert.ToInt32(objLogin.iID));
+                    //if (objPlanLogin.Count > 0)
+                    //{
+                    //    cPlan objPlan = cPlan.Get_ID(objPlanLogin[0].objPlan.iObjectID);
+                    //    objProfile.PlanName = objPlan.sName;
+                    //    objProfile.EndPlan = objPlan.sPlanDays;
+                    //    objProfile.Submission = objPlan.sFormSubmission;
+                    //    objProfile.Memory = objPlan.sMemorySpace;
+                    //    objProfile.MaxForm = objPlan.sMaxCreateForms;
+                    //}
                     //HomeController c = new HomeController();
                     //ActionResult result = c.SubUserLoad();
                    
@@ -87,6 +88,7 @@ namespace Site.Controllers
         [HttpPost]
         public ActionResult Profile(Profile objProf)
         {
+            System.Threading.Thread.Sleep(1000);
             if (Session["UserID"] != null)
             {
                 cLoginUser objLogin = cLoginUser.Get_ID(Convert.ToInt32(Session["UserID"]));
@@ -112,72 +114,18 @@ namespace Site.Controllers
                     aobjProfile[0].Save();
 
                 }
+                return Content("1");
+               // return View();
+                
+           }
+            else {
+                return View();
             }
-            return RedirectToAction("Profile");
+          
 
         }
 
         //call sequerity view 
-        [HttpGet]
-        public ActionResult SecurityQuestion()
-        {
-            List<cSecurityQuestion> objQuest = cSecurityQuestion.Find();
-            SecurityQuestion objSe = new SecurityQuestion();
-            // SecurityList objSec = new SecurityList();
-            List<cSecurityQuestion> list1 = new List<cSecurityQuestion>();
-            List<cSecurityQuestion> list2 = new List<cSecurityQuestion>();
-            List<cSecurityQuestion> list3 = new List<cSecurityQuestion>();
-            for (int i = 0; i < objQuest.Count; i++)
-            {
-                if (i < 7)
-                {
-                    list1.Add(objQuest[i]);
-
-                }
-                else if (i < 12 && i > 6)
-                {
-                    list2.Add(objQuest[i]);
-
-                }
-                else
-                {
-                    list3.Add(objQuest[i]);
-
-                }
-            }
-            objSe.ddl1 = new SelectList(list1, "iID", "sQuestion");
-            objSe.ddl2 = new SelectList(list2, "iID", "sQuestion");
-            objSe.ddl3 = new SelectList(list3, "iID", "sQuestion");
-            return PartialView("_SecurityQuestion", objSe);
-        }
-
-        [HttpPost]
-        public ActionResult SecurityQuestion(SecurityQuestion sq)
-        {
-            cLogin_Security objSequerity = cLogin_Security.Create();
-            objSequerity.sAnswer = sq.Answer1;
-            objSequerity.objSecurityQuestion.iObjectID = Convert.ToInt32(sq.QuestionText1);
-            objSequerity.objLoginUser.iObjectID = Convert.ToInt32(Session["UserID"]);
-            objSequerity.Save();
-            cLogin_Security objSequerity1 = cLogin_Security.Create();
-            objSequerity1.sAnswer = sq.Answer2;
-            objSequerity1.objSecurityQuestion.iObjectID = Convert.ToInt32(sq.QuestionText2);
-            objSequerity1.objLoginUser.iObjectID = Convert.ToInt32(Session["UserID"]);
-            objSequerity1.Save();
-            cLogin_Security objSequerity2 = cLogin_Security.Create();
-            objSequerity2.sAnswer = sq.Answer3;
-            objSequerity2.objSecurityQuestion.iObjectID = Convert.ToInt32(sq.QuestionText3);
-            objSequerity2.objLoginUser.iObjectID = Convert.ToInt32(Session["UserID"]);
-            objSequerity2.Save();
-            return RedirectToAction("Profile");
-        }
-
-        [HttpGet]
-        public ActionResult UserRecovery()
-        {
-            //cLogin_Security
-            return View();
-        }
 
         [HttpPost]
         public ActionResult SubUser(SubUser profile)

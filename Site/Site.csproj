@@ -200,25 +200,30 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Code\Cryptography.cs" />
+    <Compile Include="App_Code\General.cs" />
     <Compile Include="App_Code\Mail.cs" />
+    <Compile Include="App_Code\MobileOTP.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\FormsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageUserController.cs" />
+    <Compile Include="Controllers\PricingController.cs" />
+    <Compile Include="Controllers\UserFormController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\FormList.cs" />
+    <Compile Include="Models\Plan.cs" />
+    <Compile Include="Models\Pricing.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\Register.cs" />
-    <Compile Include="Models\SecurityQuestion.cs" />
-    <Compile Include="Models\UserRecovery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -263,7 +268,29 @@
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\JQGrid\css\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\JQGrid\css\images\ui-bg_flat_55_fbec88_40x100.png" />
+    <Content Include="Content\JQGrid\css\images\ui-bg_glass_75_d0e5f5_1x400.png" />
+    <Content Include="Content\JQGrid\css\images\ui-bg_glass_85_dfeffc_1x400.png" />
+    <Content Include="Content\JQGrid\css\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\JQGrid\css\images\ui-bg_gloss-wave_55_5c9ccc_500x100.png" />
+    <Content Include="Content\JQGrid\css\images\ui-bg_inset-hard_100_f5f8f9_1x100.png" />
+    <Content Include="Content\JQGrid\css\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
+    <Content Include="Content\JQGrid\css\images\ui-icons_217bc0_256x240.png" />
+    <Content Include="Content\JQGrid\css\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\JQGrid\css\images\ui-icons_469bdd_256x240.png" />
+    <Content Include="Content\JQGrid\css\images\ui-icons_6da8d5_256x240.png" />
+    <Content Include="Content\JQGrid\css\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\JQGrid\css\images\ui-icons_d8e7f3_256x240.png" />
+    <Content Include="Content\JQGrid\css\images\ui-icons_f9bd01_256x240.png" />
+    <Content Include="Content\JQGrid\css\jquery-ui-1.9.2.custom.css" />
+    <Content Include="Content\JQGrid\css\ui.jqgrid.css" />
+    <Content Include="Content\JQGrid\js\grid.locale-en.js" />
+    <Content Include="Content\JQGrid\js\jquery-1.8.3.js" />
+    <Content Include="Content\JQGrid\js\jquery-ui-1.9.2.custom.js" />
+    <Content Include="Content\JQGrid\js\jquery.jqGrid.min.js" />
     <Content Include="Content\modern-business.css" />
+    <Content Include="Content\Pricing.css" />
     <Content Include="Content\Profile.css" />
     <Content Include="Content\style.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -321,6 +348,12 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="FileJS\bootstrap.min.css" />
+    <Content Include="FileJS\bootstrap.min.js" />
+    <Content Include="FileJS\handlebars.min.js" />
+    <Content Include="FileJS\jquery-ui.css" />
+    <Content Include="FileJS\jquery-ui.min.js" />
+    <Content Include="FileJS\jquery.js" />
     <Content Include="Global.asax" />
     <Content Include="Images\1.mp3" />
     <Content Include="Images\bg.png" />
@@ -332,6 +365,8 @@
     <Content Include="Images\Existing-User-Label.png" />
     <Content Include="Images\home.png" />
     <Content Include="Images\icon_name.png" />
+    <Content Include="Images\l1.gif" />
+    <Content Include="Images\l2.gif" />
     <Content Include="Images\loading.gif" />
     <Content Include="Images\loder.gif" />
     <Content Include="Images\Login-Icon.png" />
@@ -410,7 +445,6 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
-    <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\VeificationMessage.cshtml" />
     <Content Include="Views\Account\Error.cshtml" />
@@ -424,6 +458,14 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_RegisterPartial.cshtml" />
     <Content Include="Views\Shared\_SubUserPartial.cshtml" />
+    <Content Include="Views\Pricing\Index.cshtml" />
+    <Content Include="Views\Pricing\PaymentGateway.cshtml" />
+    <Content Include="Views\Pricing\Success.cshtml" />
+    <Content Include="Views\Pricing\Failure.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Forms\Index.cshtml" />
+    <Content Include="Views\UserForm\Create.cshtml" />
+    <Content Include="Views\UserForm\PagePreview.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

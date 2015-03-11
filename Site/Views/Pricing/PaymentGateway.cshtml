@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "PaymentGateway";
+    Layout = "~/Views/Shared/_AccountMaster.cshtml";
+}
+<link href="~/Content/Pricing.css" rel="stylesheet" />
+<section class="contentRes" style="margin-top:100px;height:300px;">
+    <div style="text-align:center">
+        @Html.ActionLink("Success", "Success", "Pricing", null, new { @class = "btn3" }) &nbsp; &nbsp;
+        @Html.ActionLink("Failure", "Failure", "Pricing", null, new { @class = "btn3" })
+    </div>
+</section>

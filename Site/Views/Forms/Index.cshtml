@@ -1,0 +1,82 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = null;
+    var grid=new WebGrid(source:Model,rowsPerPage:2);
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>My First Grid</title>
+
+    @*Style Sheet For Grid:-*@
+    <link rel="stylesheet" type="text/css" media="screen" href="css/jquery-ui-1.9.2.custom.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="css/ui.jqgrid.css" />
+
+    <link type="text/css" href="http://jqueryrock.googlecode.com/svn/trunk/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" />
+    <link type="text/css" href="http://jqueryrock.googlecode.com/svn/trunk/jqgrid/css/ui.jqgrid.css" rel="stylesheet" />
+
+    @*JS For Grid:-*@
+    <script type="text/javascript" src="js/jquery-1.8.3.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.9.2.custom.js"></script>
+    <script src="js/grid.locale-en.js" type="text/javascript"></script>
+    <script src="js/jquery.jqGrid.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="http://jqueryrock.googlecode.com/svn/trunk/js/jquery-1.8.3.js"></script>
+    <script type="text/javascript" src="http://jqueryrock.googlecode.com/svn/trunk/js/jquery-ui-1.9.2.custom.js"></script>
+    <script src="http://jqueryrock.googlecode.com/svn/trunk/jqgrid/js/grid.locale-en.js" type="text/javascript"></script>
+    <script src="http://jqueryrock.googlecode.com/svn/trunk/jqgrid/js/jquery.jqGrid.min.js" type="text/javascript"></script>
+
+    <style type="text/css">
+        table.gridtable {
+            font-family: verdana,arial,sans-serif;
+            font-size: 11px;
+            color: #333333;
+            border-width: 1px;
+            border-color: #666666;
+            border-collapse: collapse;
+        }
+
+            table.gridtable th {
+                border-width: 1px;
+                padding: 8px;
+                border-style: solid;
+                border-color: #666666;
+                background-color: #dedede;
+            }
+
+            table.gridtable td {
+                border-width: 1px;
+                padding: 8px;
+                border-style: solid;
+                border-color: #666666;
+                background-color: #ffffff;
+            }
+    </style>
+    <script type="text/javascript">
+
+    </script>
+</head>
+<body>
+    <div style="margin-top:400px;height:auto; width:auto; margin-left:200px;border:2px solid red">
+        @using (Html.BeginForm("Index", "Forms",FormMethod.Post))
+        {
+                @grid.GetHtml(
+                tableStyle:"gridtable",
+                columns:
+                    grid.Columns(
+                        @*Here I Will Add Checkbox Column*@
+                        grid.Column(format:@<text><input type="checkbox" name="Edit" value="@item.iID" /></text>, header:"Edit"),
+                        grid.Column(format:@<text><input type="checkbox" name="View" value="@item.iID" /></text>, header:"View"),
+                        grid.Column("iID","Form ID"),
+                        grid.Column("FormName", "Form Name")
+                    )
+                )
+            <input type="submit" value="Update" />
+        }
+    </div>
+   
+</body>
+</html>

@@ -67,9 +67,16 @@ namespace Site.Models
     }
     public class ForgotPassword
     {
-        [Required(ErrorMessage = "Please Enter Email ID")]
+      
         [RegularExpression(".+@.+\\..+", ErrorMessage = "Please Enter Valid Email ID ")]
+        [Remote("CheckEmailNotExist", "Account")]
         public string EmailID { get; set; }
+      
+        [RegularExpression(@"^[0-9]{0,15}$", ErrorMessage = "Please Enter Valid Mobile Number")]
+        [Remote("CheckMobileNotExist", "Account")]
+        public string Mobile { get; set; }
+        [Required(ErrorMessage = "Please Enter OTP Text")]
+        public string OTPText { get; set; }
     }
     public class ChangePassword
     {
@@ -89,7 +96,7 @@ namespace Site.Models
         [DataType(DataType.Password)]
         [Display(Name = "Confirm new password")]
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
-        public string ConfirmPassword { get; set; }
+        public string ConfirmPasswords { get; set; }
 
 
     }

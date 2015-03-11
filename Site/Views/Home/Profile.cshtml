@@ -64,8 +64,19 @@
         }
     }
 </script>
-<script type="text/javascript">
-
+<script>
+    function BeginProfile() {
+       // $("#loder").show();
+    }
+    function SuccessProfile() {
+       // $("#loder").hide();
+        var res = $("#result").text();
+        if (res == "1") {
+            $("#result").text("Information updated sucessfully.");
+            $("#result").show();
+            window.location.href = '@Url.Action("Profile", "Home")';
+        }
+    }
 </script>
 <div id="tabNavigation" style="float:left">
     <ul>
@@ -84,17 +95,19 @@
     </ul>
 </div>
 
-@using (Html.BeginForm("Profile", "Home"))
+@using (Ajax.BeginForm("Profile", "Home", new AjaxOptions { UpdateTargetId = "result", OnBegin = "BeginProfile()", OnSuccess = "SuccessProfile()" }))
 {
     <div id="tabContent" style="float:right">
+  
         <div class="sprite" id="users" style="display:none">
             <div class="section-title">
                 <div class="big-title">Setup Sub Accounts to Share Forms and Folders</div>
             </div>
+    
             <div class="editable" id="newUserEditor" style="display:none">
                 <span class="cancelEdit">X</span>
                 <span class="fields">
-                    @Html.Action("SubUser", "Home");
+                  @*  @Html.Action("SubUser", "Home");*@
                     </span>
      
                 </div>
@@ -160,13 +173,21 @@
         <div class="sprite" id="profile" style="display: block;">
             <div class="section-title">
                 <div class="big-title"> Update <span class="green"> Profile</span> Information</div>
-                <!--<div class="title">We can write detailed <b>explanation</b> here, for <b>each</b> view.</div>-->
+                <div style="text-align:center"><span  style="color:green;display:none" id="result">All Message will come here</span></div>
             </div>
+            
 
-
-
-            <!-- username -->
-            <div class="editable" id="profileUsername" field="username">
+            <!-- User name -->  
+            <div class="editable" id="profileUserName" field="UserName">
+                <div class="display" id="mobilePhone">
+                    <span class="lineLabel">UserName</span>
+                    <span class="attribute">@Html.DisplayFor(m => m.UserName)</span>
+                </div>
+              
+            </div>
+          
+            <!-- FirstName and lastname -->
+            <div class="editable" id="profileFirstnameLastname" field="username">
 
                 <div class="display" id="profileView">
                     <span class="editButton"><a href="#" onclick="EditName()">edit</a></span>
@@ -185,7 +206,9 @@
                         </tr>
                         <tr>
                             <td></td>
-                            <td><input type="submit" value="Save" /></td>
+                            <td><input type="submit" value="Save" />
+                                <span id="loder" style="display:none"><img src="~/Images/l2.gif" alt="" title=""></span>
+                            </td>
                         </tr>
                     </table>
                 </div>
@@ -202,11 +225,9 @@
                 </div>
                 <div id="divPasswordEdit" style="display:none">
                     <span class="cancelEdit"></span>
-
                     <span class="fields">
+                        @Html.Partial("_ChangePassword", new Site.Models.ChangePassword());
 
-
-                        @Html.Action("ChangePassword", "Account")
                     </span>
                 </div>
             </div>
@@ -244,21 +265,6 @@
                 </div>
             </div>
             <div class="clearer"></div>
-
-
-
-            <!-- securityQuestion -->
-            <div class="editable" id="profileSecurityQuestion" field="securityQuestion">
-                <div class="display">
-                    @*<span class="editButton">edit</span>*@
-                    <span class="lineLabel">Security Question</span>
-                    <span class="attribute pass-stars"></span>
-                </div>
-                <div>
-                    @Html.Action("SecurityQuestion", "Home")
-
-                </div>
-            </div>
 
             <!-- company -->
             <div class="editable" id="profileCompany" field="company">

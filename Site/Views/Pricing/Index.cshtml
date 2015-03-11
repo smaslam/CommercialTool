@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Site.Models.Plan>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AccountMaster.cshtml";
+}
+<link href="~/Content/Pricing.css" rel="stylesheet" />
+<section class=" contentres">
+    <div class="divMenuHead">
+        <p>Upgrade Your Account</p>
+    </div>
+    <div style="text-align:center" class="divSubMenuHead">
+        <p>Choose a subscription plan for you</p>
+    </div>
+
+    <div class="divUpgrade" style="margin-left:240px;">
+       
+            <div style="display: inline;">
+                <section class="container">
+                    <div style="text-align:center" class="pricing_table_wdg">
+                        @foreach (var item in Model)
+                        {
+                            <ul>
+                                <li>@item.PlanName</li>
+                                <li>$@item.PlanCost</li>
+                                <li style="color:red">Desription will come after when Bipin will Decide.</li>
+                                <li>@item.iNoResponses Submission Allow</li>
+                                <li>@item.iMemeorySpace GB Storage</li>
+                                <li>@item.iNoSubUser Sub Users</li>
+                                <li>Maximum Campaign Create @item.iNoCampaign</li>
+                                <li>Maximum Email Sent @item.iNoEmailSent</li>
+                                <li>Maximum Form Input Controles @item.iNoInputControle</li>
+                                <li>Branding Allow @item.bIsBranding</li>
+                                <li>Thanku Page Customization @item.bIsThankuPage</li>
+                                <li>Email Support @item.bEmailSupport</li>
+                                <li>Maximum Form Create @item.iNoForms</li>
+                                <li>@item.iDays No. Of Day</li>
+                                <li>@Html.ActionLink("Upgrade","UpgradeAccount","Pricing",new {id = @item.iID},null)</li>
+                            </ul>
+                      
+                        }
+                    </div>
+
+                    <br style="clear:both;">
+                </section>
+            </div>
+    
+    </div>
+
+</section>

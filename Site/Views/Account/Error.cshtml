@@ -21,7 +21,7 @@
         <!--start-content------>
         <div class="content">
     
-            @if (Request.QueryString["ErrorCode"].ToString() == "1")
+            @*@if (Request.QueryString["ErrorCode"].ToString() == "1")
             {
                 <p><span><label>O</label>hh.....</span>The link you have visited is expire.</p>
 
@@ -33,15 +33,15 @@
             }
             @if (Request.QueryString["ErrorCode"].ToString() == "2")
             {
-                <p><span><label>O</label>hh.....</span>We are getting error during verification.</p>
+               
 
                 <audio autoplay>
                     <source src="../Images/1.mp3" type="audio/ogg">
                     <source src="../Images/1.mp3" type="audio/mpeg">
 
                 </audio>
-            }
-           
+            }*@
+            <p><span><label>O</label>hh.....</span>We are getting error during verification.</p>
             <img src="~/Images/error-img.png" />
             <a href="#">Back To Home</a>
             <div class="copy-right">

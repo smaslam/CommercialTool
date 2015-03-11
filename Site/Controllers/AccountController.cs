@@ -28,10 +28,10 @@ namespace Site.Controllers
         public ActionResult Register(string Email)
         {
             Register objReg = new Register();
-            if (Email!=null)
+            if (Email != null)
             {
-               
-                objReg.EmailID = Email.ToString(); 
+
+                objReg.EmailID = Email.ToString();
             }
 
             return View(objReg);
@@ -41,30 +41,30 @@ namespace Site.Controllers
         {
             try
             {
-              
-                    cLoginUser objLogin = cLoginUser.Create();
-                    objLogin.sEmailID = register.EmailID;
-                    objLogin.sPassword = Cryptography.Encryptdata(register.Password);
-                    objLogin.sUserName = register.UserID;
-                    objLogin.bFirstTime = false;
-                    objLogin.Save();
 
-                    cUserProfile objProfile = cUserProfile.Create();
-                    objProfile.sFirstName = register.FirstName;
-                    objProfile.sLastName = register.LastName;
-                    objProfile.sMobileNo = register.Mobile;
-                    objProfile.objLoginUser.iObjectID = objLogin.iID;
-                    objProfile.Save();
+                cLoginUser objLogin = cLoginUser.Create();
+                objLogin.sEmailID = register.EmailID;
+                objLogin.sPassword = Cryptography.Encryptdata(register.Password);
+                objLogin.sUserName = register.UserID;
+                objLogin.bFirstTime = false;
+                objLogin.Save();
 
-                    cVerfication objVerification = cVerfication.Create();
-                    objVerification.bEmailVerified = false;
-                    objVerification.bMobileVerified = false;
-                    objVerification.objLoginUser.iObjectID = objLogin.iID;
-                    objVerification.Save();
-                    SaveFreePlan(Convert.ToInt32(objLogin.iID));
-                    RegisterVerificationMail(register.FirstName, register.LastName, register.EmailID, "HGASDHHJASGAGHSJASGYASGHAGSY");
+                cUserProfile objProfile = cUserProfile.Create();
+                objProfile.sFirstName = register.FirstName;
+                objProfile.sLastName = register.LastName;
+                objProfile.sMobileNo = register.Mobile;
+                objProfile.objLoginUser.iObjectID = objLogin.iID;
+                objProfile.Save();
 
-            
+                cVerfication objVerification = cVerfication.Create();
+                objVerification.bEmailVerified = false;
+                objVerification.bMobileVerified = false;
+                objVerification.objLoginUser.iObjectID = objLogin.iID;
+                objVerification.Save();
+                SaveFreePlan(Convert.ToInt32(objLogin.iID));
+                RegisterVerificationMail(register.FirstName, register.LastName, register.EmailID, "HGASDHHJASGAGHSJASGYASGHAGSY");
+
+
 
             }
             catch (Exception)
@@ -112,7 +112,7 @@ namespace Site.Controllers
                     {
                         objVerify[0].bEmailVerified = true;
                         objVerify[0].Save();
-               
+
                         return RedirectToAction("Login");
                     }
                     else
@@ -156,10 +156,11 @@ namespace Site.Controllers
                             {
                                 return Content("1");
                             }
-                            else {
+                            else
+                            {
                                 return Content("5");
                             }
-                          
+
 
                         }
                         else
@@ -192,7 +193,7 @@ namespace Site.Controllers
             return RedirectToAction("Login", "Account");
         }
 
-        //-----------Change Password Action------------//
+        //-----------Forgot Password Action------------//
 
         [HttpGet]
         public ActionResult ForgotPassword()
@@ -206,32 +207,66 @@ namespace Site.Controllers
             string url = "";
             try
             {
-                List<cLoginUser> objLogin = cLoginUser.Find(" sEmailID = " + forgot.EmailID.ToString().Trim());
-                if (objLogin.Count > 0)
+                if (forgot.EmailID != "" && forgot.EmailID != null)
                 {
-                    List<cUserProfile> aobProfile = cUserProfile.Find(" objLoginUser = " + objLogin[0].iID);
+
+                    List<cLoginUser> objLogin = cLoginUser.Find(" sEmailID = " + forgot.EmailID.ToString().Trim());
+                    if (objLogin.Count > 0)
+                    {
+                        List<cUserProfile> aobProfile = cUserProfile.Find(" objLoginUser = " + objLogin[0].iID);
+                        if (aobProfile.Count > 0)
+                        {
+                            Result = ForgotPasswordMail(aobProfile[0].sFirstName.ToString(), aobProfile[0].sLastName.ToString(), forgot.EmailID.ToString().Trim(), "GSDHGSD");
+                        }
+
+                        if (Result == "ok")
+                        {
+
+                            return Content("1");
+                        }
+                        else
+                        {
+                            return Content("0");
+                        }
+                    }
+                }
+                if (forgot.Mobile != "" && forgot.Mobile != null)
+                {
+
+
+                    List<cUserProfile> aobProfile = cUserProfile.Find(" sMobileNo = " + forgot.Mobile.ToString().Trim());
                     if (aobProfile.Count > 0)
                     {
-                        Result = ForgotPasswordMail(aobProfile[0].sFirstName.ToString(), aobProfile[0].sLastName.ToString(), forgot.EmailID.ToString().Trim(), "GSDHGSD");
+                        Result = MobileOTP.GetOTP(forgot.Mobile.Trim());
                     }
 
-                    if (Result == "ok")
+                    if (Result != "")
                     {
-                        ViewBag.Check = "2";
-                        return View();
+                        Session["OTPMail"] = aobProfile[0].objLoginUser.iObjectID;
+                        return Content("3");
                     }
                     else
                     {
-                        ViewBag.Check = "1";
-                        return View();
-                    }
-                }
-                else
-                {
-                    //Email id does not exist in database.
 
-                    ViewBag.Check = "3";
-                    return View();
+                        return Content("4");
+                    }
+
+                }
+                if (forgot.OTPText.Trim() != "")
+                {
+
+
+                    Result = MobileOTP.VerifyOTP(forgot.OTPText.Trim());
+                    if (Result != "ok")
+                    {
+
+                        return Content("5");
+                    }
+                    else
+                    {
+
+                        return Content("6");
+                    }
 
                 }
 
@@ -244,35 +279,11 @@ namespace Site.Controllers
 
             return View();
         }
-
-        [HttpGet]
-        [ChildActionOnly]
-        public ActionResult ChangePassword(string eMail)
-        {
-            return PartialView("_ChangePassword");
-        }
-        [HttpPost]
-        public ActionResult ChangePassword(ChangePassword changepassword)
-        {
-            if (ModelState.IsValid)
-            {
-                string email = Session["userSession"].ToString();
-                List<cLoginUser> objLogin = cLoginUser.Find(" sEmailID = " + email);
-                if (objLogin.Count > 0)
-                {
-                    objLogin[0].sPassword = Cryptography.Encryptdata(changepassword.NewPassword);
-                    objLogin[0].Save();
-                    Session["userSession"] = null;
-                    return RedirectToAction("Login");
-                }
-            }
-            return View();
-        }
         public string ForgotPasswordMail(string FirstName, string LastName, string Email, string HashCode)
         {
             string strBody = "";
             string getEmail = Cryptography.Encryptdata(Email);
-            string link = "http://182.74.6.162/CommTool/Account/ChangePasswordVerification?Email=" + getEmail + "&HashCode=" + Cryptography.Encryptdata(HashCode) + "&SendDate=" + Cryptography.Encryptdata((System.DateTime.Now).ToString()) + "";
+            string link = "http://localhost:3095/Account/ChangePasswordVerification?Email=" + getEmail + "&HashCode=" + Cryptography.Encryptdata(HashCode) + "&SendDate=" + Cryptography.Encryptdata((System.DateTime.Now).ToString()) + "";
             string Links = "<b><a target='_blank' href=" + link + ">Click here to reset your password.</a></b>";
             StreamReader sr = new StreamReader(HttpContext.Server.MapPath(HttpContext.Request.ApplicationPath + "/App_Data/PasswordVerification.html"));
             strBody = sr.ReadToEnd();
@@ -299,8 +310,8 @@ namespace Site.Controllers
                 List<cLoginUser> objLogin = cLoginUser.Find(" sEmailID = " + sEmail);
                 if (objLogin.Count > 0)
                 {
-                    Session["userSession"] = sEmail;
-                    return RedirectToAction("ChangePassword");
+                    Session["emailSession"] = sEmail;
+                    return RedirectToAction("ResetPassword");
 
                 }
                 else
@@ -310,7 +321,62 @@ namespace Site.Controllers
             }
             //return RedirectToAction("ChangePassword");
         }
+        public ActionResult ResetPassword()
+        {
 
+            return View();
+        }
+
+        //----------- Change Password Action------------//
+
+        [HttpGet]
+        [ChildActionOnly]
+        public ActionResult ChangePassword()
+        {
+            return PartialView("_ChangePassword");
+        }
+        [HttpPost]
+        public ActionResult ChangePassword(ChangePassword changepassword)
+        {
+            if (Session["UserID"] != null)
+            {
+                string UserID = Session["UserID"].ToString();
+                cLoginUser objLogin = cLoginUser.Get_ID(Convert.ToInt32(UserID));
+                objLogin.sPassword = Cryptography.Encryptdata(changepassword.NewPassword);
+                objLogin.Save();
+                return RedirectToAction("Profile","Home");
+
+            }
+            else
+            {
+                if (Session["emailSession"] != null)
+                {
+                    string email = Session["userSession"].ToString();
+                    List<cLoginUser> objLogin = cLoginUser.Find(" sEmailID = " + email);
+                    if (objLogin.Count > 0)
+                    {
+                        objLogin[0].sPassword = Cryptography.Encryptdata(changepassword.NewPassword);
+                        objLogin[0].Save();
+                        Session["emailSession"] = null;
+                        return Content("7");
+                    }
+                }
+                else
+                {
+                    if (Session["OTPMail"] != null)
+                    {
+                        cLoginUser objLogin = cLoginUser.Get_ID(Convert.ToInt32(Session["OTPMail"].ToString()));
+                        objLogin.sPassword = Cryptography.Encryptdata(changepassword.NewPassword);
+                        objLogin.Save();
+                        Session["OTPMail"] = null;
+                        return Content("1");
+
+                    }
+                }
+
+            }
+            return View();
+        }
 
         //-----------Check MailId or Mobile No. Already Exist------------//
 
@@ -331,6 +397,26 @@ namespace Site.Controllers
             if (objUserprofile.Count > 0)
             {
                 return Json("Mobile no. already exist.", JsonRequestBehavior.AllowGet);
+            }
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult CheckEmailNotExist(string EmailID)
+        {
+            List<cLoginUser> objLogin = cLoginUser.Find(" sEmailID = " + EmailID.ToString().Trim());
+            if (objLogin.Count <= 0)
+            {
+                return Json("Email Id not exist.", JsonRequestBehavior.AllowGet);
+            }
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult CheckMobileNotExist(string Mobile)
+        {
+            List<cUserProfile> objUserprofile = cUserProfile.Find(" sMobileNo = " + Mobile.ToString().Trim());
+            if (objUserprofile.Count <= 0)
+            {
+                return Json("Mobile no. not exist.", JsonRequestBehavior.AllowGet);
             }
             return Json(true, JsonRequestBehavior.AllowGet);
         }
@@ -356,20 +442,23 @@ namespace Site.Controllers
 
         //-----------Add Free Plan To User after verification------------//
 
-        public void SaveFreePlan(int LoginId) {
-            try{
-            cPlan objPlan = cPlan.Get_Name("Starter");
-            cLogin_Plan objloginPlan = cLogin_Plan.Create();
-            objloginPlan.objLoginUser.iObjectID = LoginId;
-            objloginPlan.objPlan.iObjectID = objPlan.iID;
-            objloginPlan.dtPlanStartDate = DateTime.Now;
-            objloginPlan.dtPlanEndDate = DateTime.Now.AddDays(Convert.ToInt32(objPlan.sPlanDays));
-            objloginPlan.Save();
-            }
-            catch(Exception ex){
-            
-            }
-        
+        public void SaveFreePlan(int LoginId)
+        {
+            //try
+            //{
+            //    cPlan objPlan = cPlan.Get_Name("Starter");
+            //    cLogin_Plan objloginPlan = cLogin_Plan.Create();
+            //    objloginPlan.objLoginUser.iObjectID = LoginId;
+            //    objloginPlan.objPlan.iObjectID = objPlan.iID;
+            //    objloginPlan.dtPlanStartDate = DateTime.Now;
+            //    objloginPlan.dtPlanEndDate = DateTime.Now.AddDays(Convert.ToInt32(objPlan.sPlanDays));
+            //    objloginPlan.Save();
+            //}
+            //catch (Exception ex)
+            //{
+
+            //}
+
         }
     }
 }
